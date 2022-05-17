@@ -14,12 +14,14 @@ SOURCES += \
     connectiondialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    myopenglwidget.cpp
+    myopenglwidget.cpp \
+    waterwidget.cpp
 
 HEADERS += \
     connectiondialog.h \
     mainwindow.h \
-    myopenglwidget.h
+    myopenglwidget.h \
+    waterwidget.h
 
 FORMS += \
     connectiondialog.ui \

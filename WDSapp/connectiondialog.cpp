@@ -8,6 +8,34 @@ ConnectionDialog::ConnectionDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     this->device = new QSerialPort(this);
+
+    QPalette palette = ui->pushButton->palette();
+
+    palette.setColor(QPalette::Window,Qt::blue);
+    palette.setColor(QPalette::WindowText,Qt::red);
+
+    ui->pushButton->setPalette(palette);
+
+    // Przycisk OK
+    QPixmap pixmapOk("C:/Users/piotr/Desktop/Qt Creator/Pierwszy projekt/WDSapp/correct.png");
+    QIcon ButtonIconOk(pixmapOk);
+    ui->pushButtonOk->setIcon(ButtonIconOk);
+    ui->pushButtonOk->setIconSize(QSize(15,15));
+
+    //Przycisk Cancel
+    QPixmap pixmapNo("C:/Users/piotr/Desktop/Qt Creator/Pierwszy projekt/WDSapp/remove.png");
+    QIcon ButtonIconNo(pixmapNo);
+    ui->pushButtonCancel->setIcon(ButtonIconNo);
+    ui->pushButtonCancel->setIconSize(QSize(15,15));
+
+    //Przycisk Search
+    QPixmap pixmapSearch("C:/Users/piotr/Desktop/Qt Creator/Pierwszy projekt/WDSapp/searchicon.png");
+    QIcon ButtonIconSearch(pixmapSearch);
+    ui->pushButton->setIcon(ButtonIconSearch);
+    ui->pushButton->setIconSize(QSize(15,15));
+
+    //Ikona okna
+    setWindowIcon(QIcon("C:/Users/piotr/Desktop/Qt Creator/Pierwszy projekt/WDSapp/connectionicon.png"));
 }
 
 ConnectionDialog::~ConnectionDialog()
@@ -22,6 +50,7 @@ void ConnectionDialog::on_pushButtonOk_clicked()
       return;
     }
 
+    //Ustawienie połączenia z akcelerometrem
     QString portName = ui->comboBox->currentText().split("\t").first();
     this->device->setPortName("COM8");
 
@@ -48,7 +77,6 @@ void ConnectionDialog::on_pushButtonOk_clicked()
 
 void ConnectionDialog::on_pushButtonCancel_clicked()
 {
-
     if(this->device->isOpen()) {
       this->device->close();
       qDebug("Zamknięto połączenie.");
@@ -59,7 +87,7 @@ void ConnectionDialog::on_pushButtonCancel_clicked()
     reject();
 }
 
-
+// Szukanie portów COM i dodawanie ich do ComboBoxa
 void ConnectionDialog::on_pushButton_clicked()
 {
     QList<QSerialPortInfo> devices;
@@ -70,6 +98,7 @@ void ConnectionDialog::on_pushButton_clicked()
     }
 }
 
+// Czytanie danych z akcelerometru
 void ConnectionDialog::readFromPort()
 {
     while(this->device->canReadLine()) {
@@ -77,11 +106,24 @@ void ConnectionDialog::readFromPort()
 //        qDebug() << line;
 
         QStringList fields = line.split(",");
-        AccX=fields[0];
-        AccY=fields[1];
-        qDebug() << AccX;
-        qDebug() << AccY;
+
+        double dAccX=fields[0].toDouble();
+        double dAccY=fields[1].toDouble();
+
+        if(dAccX-pdAccX>0.1 || dAccX-pdAccX<-0.1)
+        {
+            AccX=fields[0];
+            qDebug() << "X: " <<AccX;
+        }
+        if(dAccY-pdAccY>0.1 || dAccY-pdAccY<-0.1)
+        {
+            AccY=fields[1];
+            qDebug() << "Y: " << AccY;
+        }
 //        qDebug() << line.left(pos);
+
+        pdAccX=AccX.toDouble();
+        pdAccY=AccY.toDouble();
     }
 
 }

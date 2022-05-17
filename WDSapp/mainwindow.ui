@@ -14,9 +14,18 @@
    <string>Water2D</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_5">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
      <widget class="QGroupBox" name="groupBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
       <property name="title">
        <string/>
       </property>
@@ -44,6 +53,9 @@
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QPushButton" name="pushButtonReset">
+              <property name="autoFillBackground">
+               <bool>true</bool>
+              </property>
               <property name="text">
                <string>Reset</string>
               </property>
@@ -51,6 +63,9 @@
             </item>
             <item>
              <widget class="QPushButton" name="pushButtonStartStop">
+              <property name="autoFillBackground">
+               <bool>true</bool>
+              </property>
               <property name="text">
                <string>Start</string>
               </property>
@@ -94,37 +109,10 @@
          <property name="flat">
           <bool>false</bool>
          </property>
-         <layout class="QFormLayout" name="formLayout">
-          <property name="labelAlignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="formAlignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-          <property name="horizontalSpacing">
-           <number>11</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>11</number>
-          </property>
-          <property name="leftMargin">
-           <number>11</number>
-          </property>
-          <property name="topMargin">
-           <number>11</number>
-          </property>
-          <property name="rightMargin">
-           <number>11</number>
-          </property>
-          <property name="bottomMargin">
-           <number>11</number>
-          </property>
+         <layout class="QFormLayout" name="formLayout_2">
           <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <property name="spacing">
-             <number>7</number>
-            </property>
-            <item>
+           <layout class="QFormLayout" name="formLayout">
+            <item row="0" column="0">
              <widget class="QLabel" name="label">
               <property name="maximumSize">
                <size>
@@ -132,13 +120,28 @@
                 <height>16777215</height>
                </size>
               </property>
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
               <property name="text">
                <string>X</string>
               </property>
              </widget>
             </item>
-            <item>
+            <item row="0" column="1">
              <widget class="QLabel" name="labelX">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Plain</enum>
+              </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
+              <property name="midLineWidth">
+               <number>0</number>
+              </property>
               <property name="text">
                <string>Wartość w X</string>
               </property>
@@ -166,6 +169,12 @@
             </item>
             <item>
              <widget class="QLabel" name="labelY">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="lineWidth">
+               <number>2</number>
+              </property>
               <property name="text">
                <string>Wartość w Y</string>
               </property>
@@ -193,18 +202,13 @@
      </widget>
     </item>
     <item>
-     <widget class="QWidget" name="widget" native="true">
+     <widget class="WaterWidget" name="waterWidget" native="true">
       <property name="minimumSize">
        <size>
-        <width>800</width>
-        <height>0</height>
+        <width>781</width>
+        <height>581</height>
        </size>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="MyOpenGLWidget" name="openGLWidget"/>
-       </item>
-      </layout>
      </widget>
     </item>
    </layout>
@@ -238,9 +242,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyOpenGLWidget</class>
-   <extends>QOpenGLWidget</extends>
-   <header location="global">myopenglwidget.h</header>
+   <class>WaterWidget</class>
+   <extends>QWidget</extends>
+   <header>waterwidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -17,6 +17,8 @@ public:
     explicit ConnectionDialog(QWidget *parent = nullptr);
     ~ConnectionDialog();
 
+    double pdAccY;
+    double pdAccX;
     QString getAccX() {return AccX;}
     QString getAccY() {return AccY;}
 private slots:
