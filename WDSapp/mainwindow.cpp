@@ -21,6 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(myTimer, SIGNAL(timeout()),this, SLOT(timerslot()));
     myTimer->start();
 
+
+    //Timer do odświeżania wartości pobranych z akcelerometru
+    labelTimer = new QTimer(this);
+    connect(labelTimer,SIGNAL(timeout()),this,SLOT(LabelTimerSlot()));
+
 //    connect(&dialog,SIGNAL(timeout()),this,SLOT(Label_show_values()));
 
 
@@ -38,6 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 //    WaterWidget * waterwidget = new WaterWidget(this);
 
+    ui->labelX->setAutoFillBackground(true);
+    ui->labelX->setStyleSheet("QLabel{background: white;color:black}");
+
+    ui->labelY->setAutoFillBackground(true);
+    ui->labelY->setStyleSheet("QLabel{background: white;color:black}");
 
 
 
@@ -64,21 +74,18 @@ void MainWindow::timerslot()
 {
 }
 
-// Wyswietlanie pomiarów z akcelerometru w interfejsie, nie działa
-void MainWindow::Label_show_values()
-{
 
+void MainWindow::LabelTimerSlot()
+{
+    Label_read_values();
+}
+
+// Wyswietlanie pomiarów z akcelerometru w interfejsie, nie działa
+void MainWindow::Label_read_values()
+{
     ConnectionDialog dialog;
-//    QTimer tim;
-//    tim.setInterval(500);
-//    tim.setSingleShot(false);
-//    connect(tim, SIGNAL(timeout()),this, SLOT(timerslot()));
-//    if(StartStop==true)
-//    {
-        ui->labelX->setText(dialog.getAccX());
-        ui->labelY->setText(dialog.getAccY());
-//    }else
-//        ui->labelX->setText("Stop");
+    ui->labelX->setText(AccX);
+    ui->labelY->setText(AccY);
 }
 
 // Przycisk Reset
@@ -91,12 +98,14 @@ void MainWindow::on_pushButtonReset_clicked()
 void MainWindow::on_pushButtonStartStop_clicked()
 {
     if ( this->myTimer->isActive() == true ) {
+            this->labelTimer->start(50);
             this->myTimer->stop();
             ui->pushButtonStartStop->setText("Stop");
             ui->pushButtonStartStop->setStyleSheet("background-color: red;color:white");
             ui->statusbar->showMessage("Appliaction started",2000);
             setStartStop(true);
         } else {
+            this->labelTimer->stop();
             this->myTimer->start(500);
             ui->pushButtonStartStop->setText("Start");
             ui->pushButtonStartStop->setStyleSheet("background-color: green;color:white");

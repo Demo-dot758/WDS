@@ -2,6 +2,10 @@
 #include "ui_connectiondialog.h"
 #include "mainwindow.h"
 
+
+QString AccX;
+QString AccY;
+
 ConnectionDialog::ConnectionDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ConnectionDialog)
@@ -105,25 +109,28 @@ void ConnectionDialog::readFromPort()
         QString line = this->device->readLine();
 //        qDebug() << line;
 
+        if(line.startsWith("!"))
+        {
         QStringList fields = line.split(",");
 
-        double dAccX=fields[0].toDouble();
-        double dAccY=fields[1].toDouble();
+        double dAccX=fields[1].toDouble();
+        double dAccY=fields[2].toDouble();
 
         if(dAccX-pdAccX>0.1 || dAccX-pdAccX<-0.1)
         {
-            AccX=fields[0];
+            AccX=fields[1];
             qDebug() << "X: " <<AccX;
         }
         if(dAccY-pdAccY>0.1 || dAccY-pdAccY<-0.1)
         {
-            AccY=fields[1];
+            AccY=fields[2];
             qDebug() << "Y: " << AccY;
         }
 //        qDebug() << line.left(pos);
 
         pdAccX=AccX.toDouble();
         pdAccY=AccY.toDouble();
+        }
     }
 
 }

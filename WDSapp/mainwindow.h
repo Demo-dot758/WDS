@@ -27,14 +27,17 @@ private slots:
 
     void on_pushButtonStartStop_clicked();
     void timerslot();
+    void LabelTimerSlot();
 
-    void Label_show_values();
+    void Label_read_values();
     void on_actionConnection_triggered();
 
 private:
     Ui::MainWindow *ui;
 
-    QTimer* myTimer;
+    QTimer* labelTimer; //Timer do odświeżania wartości pobranych z akcelerometru
+
+    QTimer* myTimer;  //Timer przycisku Start/Stop
 
     bool StartStop;
 

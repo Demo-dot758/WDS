@@ -5,6 +5,11 @@
 #include <QList>
 #include <QSerialPortInfo>
 #include <QSerialPort>
+
+extern QString AccX;
+extern QString AccY;
+
+
 namespace Ui {
 class ConnectionDialog;
 }
@@ -19,8 +24,11 @@ public:
 
     double pdAccY;
     double pdAccX;
-    QString getAccX() {return AccX;}
-    QString getAccY() {return AccY;}
+
+//    void setAccX(QString pomX) {AccX=pomX;}
+//    void setAccY(QString pomY) {AccY=pomY;}
+//    QString getAccX() {return AccX;}
+//    QString getAccY() {return AccY;}
 private slots:
     void on_pushButtonOk_clicked();
 
@@ -32,8 +40,9 @@ private slots:
 private:
     Ui::ConnectionDialog *ui;
     QSerialPort *device;
-    QString AccX;
-    QString AccY;
+
+//    QString AccX;
+//    QString AccY;
 };
 
 #endif // CONNECTIONDIALOG_H

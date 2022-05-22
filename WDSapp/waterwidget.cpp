@@ -5,19 +5,40 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsPolygonItem>
+#include "water.h"
+#include "waterparticle.h"
+#include "scene.h"
+#include "glass.h"
+
 
 WaterWidget::WaterWidget(QWidget *parent)
     : QWidget{parent}
 {
 
+//    scene = new Scene(this);
+//    scene->setSceneRect(-390,-290,780,580);
+
+
+
     QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setBackgroundBrush(QBrush(QColor(Qt::white)));
     QGraphicsView *view = new QGraphicsView(this);
 
-
+//    view->fitInView(WaterWidget::size());
+//    view->fitInView(0,0,781,581);
     view->setScene(scene);
+//    scene->setSceneRect(-200,-400,200,400);
+//    view->setSizePolicy(QSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred));
+//    view->setMinimumSize(781,581);
+//    scene->setMinimumRenderSize(500);
+
+//    view->setScene(scene);
 
     view->resize(781,581);
+
+//    Glass * glass = new Glass();
+//    scene->addItem(glass);
+
     QPolygon polyPoints;
     polyPoints << QPoint(250,250);  //x1
     polyPoints << QPoint(270,250);  //x2
@@ -39,11 +60,13 @@ WaterWidget::WaterWidget(QWidget *parent)
     QGraphicsPolygonItem * polyItem = new QGraphicsPolygonItem(polyPoints);
     polyItem->setPen(mPen);
     polyItem->setBrush(Qt::gray);
-
+//    QTransform transformPoly = polyItem->transform();
+//    transformPoly.rotate(45);
+//    polyItem->setTransform(transformPoly);
     scene->addItem(polyItem);
 
 
-    QGraphicsEllipseItem * circleItem = new QGraphicsEllipseItem(300,300,20,20);
+    QGraphicsEllipseItem * circleItem = new QGraphicsEllipseItem(300,300,2,2);
     circleItem->setPen(Qt::NoPen);
     circleItem->setBrush(Qt::blue);
 

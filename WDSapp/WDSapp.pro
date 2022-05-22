@@ -12,15 +12,21 @@ CONFIG += c++11
 
 SOURCES += \
     connectiondialog.cpp \
+    glass.cpp \
     main.cpp \
     mainwindow.cpp \
-    myopenglwidget.cpp \
+    scene.cpp \
+    water.cpp \
+    waterparticle.cpp \
     waterwidget.cpp
 
 HEADERS += \
     connectiondialog.h \
+    glass.h \
     mainwindow.h \
-    myopenglwidget.h \
+    scene.h \
+    water.h \
+    waterparticle.h \
     waterwidget.h
 
 FORMS += \
